@@ -1,0 +1,301 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+
+  - name: ubuntu reqs
+    become: true
+    apt: pkg={{ item }} state=present
+    with_items:
+      - build-essential
+      - cmake
+      - python-dev
+      - python-pip
+      - python3-dev
+      - python3-pip
+      - libxss1
+      - libappindicator1
+      - libindicator7
+      - git-core
+      - curl
+      - byobu
+      - dconf-cli
+      - xclip
+      - libreadline-dev
+      - zlib1g-dev
+      - postgresql
+      - postgresql-contrib
+      - libpq-dev
+      - patch
+      - liblzma-dev
+      - qt5-default
+      - libqt5webkit5-dev
+      - awscli
+      - libncurses5-dev
+      - libffi-dev
+      - libgdbm5
+      - libgdbm-dev
+      - libssl1.0-dev
+
+  - name: neovim ppa
+    become: true
+    apt_repository:
+      repo: ppa:neovim-ppa/stable
+    tags: neovim
+
+  - name: neovim install
+    become: true
+    apt:
+      name: neovim
+      update_cache: yes
+    tags: neovim
+
+  - name: neovim alternatives
+    become: true
+    shell: >
+      update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60;
+      update-alternatives --config vi;
+      update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60;
+      update-alternatives --config vim;
+      update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60;
+      update-alternatives --config editor
+
+  - name: virtualenv
+    become: true
+    command: pip install virtualenv
+    args:
+      creates: /usr/local/bin/virtualenv
+
+  - name: fish ppa
+    become: true
+    apt_repository:
+      repo: ppa:fish-shell/release-3
+    tags: fish
+
+  - name: fish install
+    become: true
+    apt:
+      name: fish
+      update_cache: yes
+    tags: fish
+
+  - name: adr tools
+    git: >
+      repo=https://github.com/npryce/adr-tools.git
+      dest= ~/adr-tools
+    tags: adr-tools
+
+  - name: clone rbenv
+    git: >
+      repo=git://github.com/sstephenson/rbenv.git
+      dest=~/.rbenv
+    tags: rbenv
+
+  - name: rbenv plugins
+    git: >
+      repo=git://github.com/sstephenson/ruby-build.git
+      dest=~/.rbenv/plugins/ruby-build
+    tags: rbenv
+
+  - name: install ruby 2.2.3
+    shell: ~/.rbenv/bin/rbenv install -v 2.2.3
+    args:
+      creates: ~/.rbenv/versions/2.2.3
+    tags: rbenv
+
+  - name: set global version of ruby to 2.2.3
+    shell: ~/.rbenv/bin/rbenv global 2.2.3
+    tags: rbenv
+
+  - name: clone dotfiles
+    git:
+      repo: git@github.com:wohlgejm/dotfiles.git
+      dest: ~/dotfiles
+      accept_hostkey: yes
+
+  - name: backup exisiting .vimrc
+    command: mv .vimrc .vimrc.bak
+    args:
+      chdir: ~/
+      removes: ~/.vimrc
+
+  - name: symlink dotfiles .vimrc
+    command: ln -s ~/dotfiles/.vimrc ~/.vimrc
+    args:
+      creates: ~/.vimrc
+
+  - name: symlink dotfiles init.vim
+    command: ln -s ~/dotfiles/init.vim ~/.config/nvim/init.vim
+    args:
+      creates: ~/.config/nvim/init.vim
+
+  - name: vimplug
+    shell: >
+      curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    args:
+      creates: ~/.local/share/nvim/site/autoload/plug.vim
+
+  - name: set up global gitignore
+    command: git config --global core.excludefile '~/dotfiles/.gitignore_global'
+
+  - name: create .gitconfig if doesn't exist
+    command: touch .gitconfig
+    args:
+      chdir: ~/
+      creates: .gitconfig
+
+  - name: git aliases
+    command: git config --global alias.{{ item.abbr }} {{ item.command }}
+    with_items:
+      - { abbr: 'co',  command: 'checkout' }
+      - { abbr: 'dc', command: 'diff --cached' }
+      - { abbr: 'pop', command: "'reset --soft head~1'" }
+      - { abbr: 'reword', command: "'commit --only --amend'" }
+      - { abbr: 'st', command: 'status' }
+      - { abbr: 'pushf', command: 'push --force-with-lease' }
+      - { abbr: 'unpulled', command: "'!\"git fetch && git log HEAD..@{u}\"'" }
+      - { abbr: 'unpushed', command: "'log @{u}..HEAD'" }
+
+  - name: heroku install
+    command: snap install heroku --classic
+    become: true
+    tags: heroku
+
+  # After cloning source desired terminal style
+  - name: gnome terminal base 16
+    git:
+      repo: https://github.com/chriskempson/base16-gnome-terminal.git
+      dest: ~/.config/base16-gnome-terminal
+
+  - name: docker key
+    become: true
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+    tags: docker
+
+  - name: docker repo
+    become: true
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+    tags: docker
+
+  - name: docker install
+    become: true
+    apt:
+      name: docker-ce
+      update_cache: yes
+    tags: docker
+
+  - name: adding {{ansible_user_id}} to docker group
+    become: true
+    command: usermod -aG docker {{ansible_user_id}}
+    tags: docker
+
+  - name: docker compose
+    become: true
+    command: pip install docker-compose
+    args:
+      creates: /usr/local/bin/docker-compose
+    tags: docker
+
+  - name: erlang repo
+    become: true
+    apt:
+      deb: https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+
+  - name: erlang
+    become: true
+    apt:
+      name: esl-erlang
+      update_cache: yes
+    tags: elixir
+
+  - name: anaconda download
+    get_url:
+      url: https://repo.continuum.io/archive/Anaconda3-2018.12-Linux-x86_64.sh
+      dest: /tmp/anaconda.sh
+    tags: anaconda
+
+  - name: install anaconda
+    command: bash /tmp/anaconda.sh -s -- -b
+    args:
+      chdir: /tmp
+      creates: ~/anaconda3
+    tags: anaconda
+
+  - name: kiex download
+    get_url:
+      url: https://raw.githubusercontent.com/taylor/kiex/master/kiex
+      dest: /tmp/kiex
+    tags: elixir
+
+  - name: install kiex
+    command: bash kiex install_kiex
+    args:
+      chdir: /tmp
+      creates: ~/.kiex
+    tags: elixir
+
+  - name: install n node version manager
+    shell: curl -L https://git.io/n-install | bash -s -- -y
+    args:
+      creates: ~/n
+      chdir: ~/
+    tags: n
+
+  - name: symlink n
+    become: true
+    command: ln -s ~/n/bin/n /usr/local/bin/n
+    args:
+      creates: /usr/local/bin/n
+    tags: n
+
+  - name: make fish directory
+    file:
+      path: ~/.config/fish
+      state: directory
+
+  - name: symlink fish config
+    command: ln -s ~/dotfiles/config.fish ~/.config/fish/config.fish
+    args:
+      creates: ~/.config/fish/config.fish
+    tags: fish
+
+  - name: symlink fish functions
+    command: ln -s ~/dotfiles/functions ~/.config/fish/functions
+    args:
+      creates: ~/.config/fish/functions
+    tags: fish
+
+  - name: delete byobu tmux config
+    file:
+      state: absent
+      path: ~/.byobu/.tmux.conf
+    tags: fish
+
+  - name: symlink tmux config
+    command: ln -s ~/dotfiles/.tmux.conf ~/.byobu/.tmux.conf
+    tags: fish
+
+  - name: download rust installer
+    get_url:
+      url: https://sh.rustup.rs
+      dest: /tmp/rust.sh
+    tags: rust
+
+  - name: install rust
+    command: bash /tmp/rust.sh -y
+    tags: rust
+    args:
+      creates: ~/.cargo/bin/rustup
+
+  - name: update rust
+    shell: ~/.cargo/bin/rustup update
+    tags: rust
+
+  - name: ripgrep
+    command: ~/.cargo/bin/cargo install ripgrep --force
+    args:
+      creates: ~/.cargo/bin/rg
