@@ -32,6 +32,7 @@ PACKAGES = %w[
   libgdbm5
   libgdbm-dev
   libssl1.0-dev
+  redis-server
 
   neovim
   fish

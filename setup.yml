@@ -5,37 +5,40 @@
 
   - name: ubuntu reqs
     become: true
-    apt: pkg={{ item }} state=present
-    with_items:
-      - build-essential
-      - cmake
-      - python-dev
-      - python-pip
-      - python3-dev
-      - python3-pip
-      - libxss1
-      - libappindicator1
-      - libindicator7
-      - git-core
-      - curl
-      - byobu
-      - dconf-cli
-      - xclip
-      - libreadline-dev
-      - zlib1g-dev
-      - postgresql
-      - postgresql-contrib
-      - libpq-dev
-      - patch
-      - liblzma-dev
-      - qt5-default
-      - libqt5webkit5-dev
-      - awscli
-      - libncurses5-dev
-      - libffi-dev
-      - libgdbm5
-      - libgdbm-dev
-      - libssl1.0-dev
+    apt:
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+        - build-essential
+        - cmake
+        - python-dev
+        - python-pip
+        - python3-dev
+        - python3-pip
+        - libxss1
+        - libappindicator1
+        - libindicator7
+        - git-core
+        - curl
+        - byobu
+        - dconf-cli
+        - xclip
+        - libreadline-dev
+        - zlib1g-dev
+        - postgresql
+        - postgresql-contrib
+        - libpq-dev
+        - patch
+        - liblzma-dev
+        - qt5-default
+        - libqt5webkit5-dev
+        - awscli
+        - libncurses5-dev
+        - libffi-dev
+        - libgdbm5
+        - libgdbm-dev
+        - libssl1.0-dev
 
   - name: neovim ppa
     become: true
@@ -60,6 +63,11 @@
       update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60;
       update-alternatives --config editor
 
+  - name: spacevim
+    command: curl -sLf https://spacevim.org/install.sh | bash 
+    args:
+      
+
   - name: virtualenv
     become: true
     command: pip install virtualenv
@@ -79,12 +87,6 @@
       update_cache: yes
     tags: fish
 
-  - name: adr tools
-    git: >
-      repo=https://github.com/npryce/adr-tools.git
-      dest= ~/adr-tools
-    tags: adr-tools
-
   - name: clone rbenv
     git: >
       repo=git://github.com/sstephenson/rbenv.git
@@ -97,53 +99,20 @@
       dest=~/.rbenv/plugins/ruby-build
     tags: rbenv
 
-  - name: install ruby 2.2.3
-    shell: ~/.rbenv/bin/rbenv install -v 2.2.3
+  - name: install ruby 2.3.1
+    shell: ~/.rbenv/bin/rbenv install -v 2.3.1
     args:
-      creates: ~/.rbenv/versions/2.2.3
+      creates: ~/.rbenv/versions/2.3.1
     tags: rbenv
 
-  - name: set global version of ruby to 2.2.3
-    shell: ~/.rbenv/bin/rbenv global 2.2.3
+  - name: set global version of ruby to 2.3.1
+    shell: ~/.rbenv/bin/rbenv global 2.3.1
     tags: rbenv
-
-  - name: clone dotfiles
-    git:
-      repo: git@github.com:wohlgejm/dotfiles.git
-      dest: ~/dotfiles
-      accept_hostkey: yes
-
-  - name: backup exisiting .vimrc
-    command: mv .vimrc .vimrc.bak
-    args:
-      chdir: ~/
-      removes: ~/.vimrc
-
-  - name: symlink dotfiles .vimrc
-    command: ln -s ~/dotfiles/.vimrc ~/.vimrc
-    args:
-      creates: ~/.vimrc
-
-  - name: symlink dotfiles init.vim
-    command: ln -s ~/dotfiles/init.vim ~/.config/nvim/init.vim
-    args:
-      creates: ~/.config/nvim/init.vim
-
-  - name: vimplug
-    shell: >
-      curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    args:
-      creates: ~/.local/share/nvim/site/autoload/plug.vim
-
-  - name: set up global gitignore
-    command: git config --global core.excludefile '~/dotfiles/.gitignore_global'
 
   - name: create .gitconfig if doesn't exist
-    command: touch .gitconfig
-    args:
-      chdir: ~/
-      creates: .gitconfig
+    file: 
+      name: /home/jerry/.gitconfig
+      state: touch
 
   - name: git aliases
     command: git config --global alias.{{ item.abbr }} {{ item.command }}
@@ -156,11 +125,6 @@
       - { abbr: 'pushf', command: 'push --force-with-lease' }
       - { abbr: 'unpulled', command: "'!\"git fetch && git log HEAD..@{u}\"'" }
       - { abbr: 'unpushed', command: "'log @{u}..HEAD'" }
-
-  - name: heroku install
-    command: snap install heroku --classic
-    become: true
-    tags: heroku
 
   # After cloning source desired terminal style
   - name: gnome terminal base 16
@@ -258,13 +222,13 @@
       state: directory
 
   - name: symlink fish config
-    command: ln -s ~/dotfiles/config.fish ~/.config/fish/config.fish
+    command: ln -s ~/devmachine/dotfiles/config.fish ~/.config/fish/config.fish
     args:
       creates: ~/.config/fish/config.fish
     tags: fish
 
   - name: symlink fish functions
-    command: ln -s ~/dotfiles/functions ~/.config/fish/functions
+    command: ln -s ~/devmachine/dotfiles/functions ~/.config/fish/functions
     args:
       creates: ~/.config/fish/functions
     tags: fish
@@ -276,7 +240,7 @@
     tags: fish
 
   - name: symlink tmux config
-    command: ln -s ~/dotfiles/.tmux.conf ~/.byobu/.tmux.conf
+    command: ln -s ~/devmachine/dotfiles/.tmux.conf ~/.byobu/.tmux.conf
     tags: fish
 
   - name: download rust installer
@@ -299,3 +263,8 @@
     command: ~/.cargo/bin/cargo install ripgrep --force
     args:
       creates: ~/.cargo/bin/rg
+
+  - name: heroku install
+    command: snap install --classic heroku
+    become: true
+    tags: heroku
