@@ -23,3 +23,7 @@ set PATH $HOME/adr-tools/src $PATH
 
 # nvim
 alias vim=nvim
+
+# Base16 Shell
+set BASE16_SHELL "$HOME/.config/base16-shell"
+source "$BASE16_SHELL/profile_helper.fish"
