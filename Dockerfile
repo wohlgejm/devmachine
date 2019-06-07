@@ -10,7 +10,7 @@ RUN echo "jerry ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER jerry
 WORKDIR /home/jerry/devmachine
 
-# ADD . /home/jerry/devmachine
+ADD . /home/jerry/devmachine
 #
 # # Run the playbook
 # RUN ansible-playbook setup.yml

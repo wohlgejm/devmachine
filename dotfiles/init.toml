@@ -11,7 +11,7 @@
     # set spacevim theme. by default colorscheme layer is not loaded,
     # if you want to use more colorscheme, please load the colorscheme
     # layer
-    colorscheme = "NeoSolarized"
+    colorscheme = "solarized"
     colorscheme_bg = "light"
     background = "light"
     # Disable guicolors in basic mode, many terminal do not support 24bit
@@ -55,3 +55,7 @@ name = 'fzf'
 
 [[layers]]
 name = 'git'
+
+[[custom_plugins]]
+name = "altercation/vim-colors-solarized"
+merged = 0

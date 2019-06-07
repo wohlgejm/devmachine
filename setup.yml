@@ -66,7 +66,7 @@
   - name: spacevim
     command: curl -sLf https://spacevim.org/install.sh | bash 
     args:
-      
+      creates: ~/.SpaceVim
 
   - name: virtualenv
     become: true
@@ -126,8 +126,8 @@
       - { abbr: 'unpulled', command: "'!\"git fetch && git log HEAD..@{u}\"'" }
       - { abbr: 'unpushed', command: "'log @{u}..HEAD'" }
 
-  # After cloning source desired terminal style
-  - name: gnome terminal base 16
+  # Run base16-${theme-name} after to install
+  - name: gnome shell base 16
     git:
       repo: https://github.com/chriskempson/base16-shell.git
       dest: ~/.config/base16-shell

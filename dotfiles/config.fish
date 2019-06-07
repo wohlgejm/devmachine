@@ -1,7 +1,6 @@
 # Rbenv
 set PATH $HOME/.rbenv/bin $PATH
 set PATH $HOME/.rbenv/shims $PATH
-rbenv rehash >/dev/null ^&1
 
 # Kiex Elixir Version Manager
 set PATH $HOME/.kiex/bin $PATH
@@ -17,9 +16,6 @@ set PATH $HOME/n/bin $PATH
 
 # Rust
 set PATH $HOME/.cargo/bin $PATH
-
-# ADR Tools
-set PATH $HOME/adr-tools/src $PATH
 
 # nvim
 alias vim=nvim
