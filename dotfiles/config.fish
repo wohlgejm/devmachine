@@ -13,6 +13,7 @@ source ~/anaconda3/etc/fish/conf.d/conda.fish
 
 # N Node Version Manager
 set PATH $HOME/n/bin $PATH
+set -gx N_PREFIX $HOME/n
 
 # Rust
 set PATH $HOME/.cargo/bin $PATH
