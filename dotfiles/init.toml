@@ -44,7 +44,8 @@ default_height = 30
 [[layers]]
 name = 'lsp'
 filetypes = [
-  'javascript'
+  'javascript',
+  'typescript'
 ]
 
 [[layers]]
@@ -55,6 +56,12 @@ name = 'fzf'
 
 [[layers]]
 name = 'git'
+
+[[layers]]
+name ="lang#elm"
+
+[[layers]]
+name ="lang#haskell"
 
 [[custom_plugins]]
 name = "altercation/vim-colors-solarized"

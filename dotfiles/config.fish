@@ -24,3 +24,6 @@ alias vim=nvim
 # Base16 Shell
 set BASE16_SHELL "$HOME/.config/base16-shell"
 source "$BASE16_SHELL/profile_helper.fish"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/jerry/google-cloud-sdk/path.fish.inc' ]; . '/home/jerry/google-cloud-sdk/path.fish.inc'; end
