@@ -38,7 +38,6 @@
         - libffi-dev
         - libgdbm5
         - libgdbm-dev
-        - libssl1.0-dev
 
   - name: neovim ppa
     become: true
@@ -63,29 +62,37 @@
       update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60;
       update-alternatives --config editor
 
-  - name: spacevim
-    command: curl -sLf https://spacevim.org/install.sh | bash 
+  - name: symlink .vimrc
+    command: ln -s ~/devmachine/dotfiles/.vimrc ~/.vimrc
     args:
-      creates: ~/.SpaceVim
+      creates: ~/.vimrc
+    tags: vim
+
+  - name: symlink .vimrc with neovim init
+    shell: |
+      mkdir -p ~/.config/nvim
+      ln -s ~/.vimrc ~/.config/nvim/init.vim
+    args:
+      creates: ~/.config/nvim/init.vim
+    tags: vim
+
+  - name: vim-plug
+    command: curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    args:
+      creates: ~/.vim/autoload/plug.vim
+    tags: vim
+
+  - name: symlink .bashrc
+    command: ln -s ~/devmachine/dotfiles/.bashrc ~/.bashrc
+    args:
+      creates: ~/.bashrc
+    tags: bashrc
 
   - name: virtualenv
     become: true
     command: pip install virtualenv
     args:
       creates: /usr/local/bin/virtualenv
-
-  - name: fish ppa
-    become: true
-    apt_repository:
-      repo: ppa:fish-shell/release-3
-    tags: fish
-
-  - name: fish install
-    become: true
-    apt:
-      name: fish
-      update_cache: yes
-    tags: fish
 
   - name: clone rbenv
     git: >
@@ -215,33 +222,6 @@
     args:
       creates: /usr/local/bin/n
     tags: n
-
-  - name: make fish directory
-    file:
-      path: ~/.config/fish
-      state: directory
-
-  - name: symlink fish config
-    command: ln -s ~/devmachine/dotfiles/config.fish ~/.config/fish/config.fish
-    args:
-      creates: ~/.config/fish/config.fish
-    tags: fish
-
-  - name: symlink fish functions
-    command: ln -s ~/devmachine/dotfiles/functions ~/.config/fish/functions
-    args:
-      creates: ~/.config/fish/functions
-    tags: fish
-
-  - name: delete byobu tmux config
-    file:
-      state: absent
-      path: ~/.byobu/.tmux.conf
-    tags: fish
-
-  - name: symlink tmux config
-    command: ln -s ~/devmachine/dotfiles/.tmux.conf ~/.byobu/.tmux.conf
-    tags: fish
 
   - name: download rust installer
     get_url:
