@@ -8,6 +8,7 @@ set nocompatible
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'chriskempson/base16-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
 filetype plugin indent on  " Load plugins according to detected filetype.
@@ -41,6 +42,7 @@ set wrapscan               " Searches wrap around end-of-file.
 set report      =0         " Always report changed lines.
 set synmaxcol   =200       " Only highlight the first 200 columns.
 autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
+set number
 
 set list                   " Show non-printable characters.
 if has('multi_byte') && &encoding ==# 'utf-8'
