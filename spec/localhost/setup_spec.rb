@@ -35,7 +35,6 @@ PACKAGES = %w[
   redis-server
 
   neovim
-  fish
 ].freeze
 
 PACKAGES.each do |package|
@@ -50,10 +49,6 @@ end
 
 describe command('ruby -v') do
   its(:stdout) { should match(/2\.3\.1/) }
-end
-
-describe file('/home/jerry/.SpaceVim.d/init.toml') do
-  it { should be_symlink }
 end
 
 describe file('/home/jerry/.byobu/.tmux.conf') do
