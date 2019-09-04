@@ -133,6 +133,10 @@
     shell: ~/.rbenv/bin/rbenv global 2.3.1
     tags: rbenv
 
+  - name: bashrc
+    shell: grep -qxF 'source ~/devmachine/dotfiles/.bashrc' ~/.bashrc || echo 'source ~/devmachine/dotfiles/.bashrc' >> ~/.bashrc
+    tags: bashrc
+
   - name: create .gitconfig if doesn't exist
     file:
       name: /home/jerry/.gitconfig
