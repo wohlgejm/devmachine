@@ -9,6 +9,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'chriskempson/base16-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 filetype plugin indent on  " Load plugins according to detected filetype.
@@ -42,7 +43,8 @@ set wrapscan               " Searches wrap around end-of-file.
 set report      =0         " Always report changed lines.
 set synmaxcol   =200       " Only highlight the first 200 columns.
 autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
-set number
+set number                 " Set line numbers
+set clipboard=unnamedplus  " Share global copy and paste
 
 set list                   " Show non-printable characters.
 if has('multi_byte') && &encoding ==# 'utf-8'
@@ -67,3 +69,9 @@ if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
   source ~/.vimrc_background
 endif
+
+" Solargraph coc extension
+let g:coc_global_extensions = ['coc-solargraph']
+
+let g:python3_host_prog = "/usr/bin/python3"
+let g:python_host_prog = "/usr/bin/python"

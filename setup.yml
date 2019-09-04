@@ -95,13 +95,19 @@
       creates: ~/.config/nvim/init.vim
     tags: vim
 
-  - name: plug install
-    command: vim +PlugInstall +qall
-
   - name: vim-plug
     command: curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     args:
       creates: ~/.vim/autoload/plug.vim
+    tags: vim
+
+  - name: plug install
+    command: vim +PlugInstall +qall
+
+  - name: symlink coc-settings
+    shell: ln -s ~/devmachine/dotfiles/coc-settings.json ~/.config/nvim/coc-settings.json
+    args:
+      creates: ~/.config/nvim/coc-settings.json
     tags: vim
 
   - name: vim backup dir
