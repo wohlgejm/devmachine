@@ -10,6 +10,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
+Plug 'ctrlpvim/ctrlp.vim'
 call plug#end()
 
 filetype plugin indent on  " Load plugins according to detected filetype.
@@ -73,5 +74,13 @@ endif
 " Solargraph coc extension
 let g:coc_global_extensions = ['coc-solargraph']
 
+" Neovim extensions for healthcheck
 let g:python3_host_prog = "/usr/bin/python3"
 let g:python_host_prog = "/usr/bin/python"
+
+" Use ripgrep for search with ctrlp
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
