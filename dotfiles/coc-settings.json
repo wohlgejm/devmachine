@@ -2,5 +2,8 @@
   "solargraph.bundlerPath": "/home/jerry/.rbenv/shims/bundler",
   "solargraph.useBundler": true,
   "solargraph.autoformat": true,
-  "solargraph.formatting": true
+  "solargraph.formatting": true,
+
+  "python.jediEnabled": false
+
 }
