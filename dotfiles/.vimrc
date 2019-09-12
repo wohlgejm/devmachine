@@ -85,3 +85,6 @@ if executable('rg')
   let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
   let g:ctrlp_use_caching = 0
 endif
+
+" Spell checking
+autocmd BufRead,BufNewFile *.md,COMMIT_EDITMSG setlocal spell
