@@ -42,6 +42,7 @@
         - libyaml-dev
         - imagemagick
         - libmagickwand-dev
+        - redis-server
 
   # libssl 1.0 is needed for ruby 2.3 and older
   - name: libssl1.0 repo
