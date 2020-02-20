@@ -50,7 +50,7 @@
   - name: libssl1.0 repo
     become: true
     apt_repository:
-      repo: deb http://security.ubuntu.com/ubuntu cosmic-security main
+      repo: deb http://security.ubuntu.com/ubuntu bionic-security main
       state: present
     tags: libssl1.0
 
