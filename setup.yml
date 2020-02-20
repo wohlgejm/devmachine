@@ -113,6 +113,9 @@
       creates: ~/.config/nvim/coc-settings.json
     tags: vim
 
+  - name: coc install
+    command: vim +CocInstall +qall
+
   - name: vim backup dir
     command: mkdir ~/.vim/files/backup
     args:
