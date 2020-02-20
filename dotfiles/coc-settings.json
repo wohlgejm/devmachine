@@ -1,11 +1,9 @@
 {
-  "solargraph.bundlerPath": "/home/jerry/.rbenv/shims/bundler",
-  "solargraph.useBundler": true,
+  "codeLens.enable": true,
   "solargraph.autoformat": true,
   "solargraph.formatting": true,
   "solargraph.hover": true,
   "solargraph.diagnostics": true,
-
-  "python.jediEnabled": false
-
+  "solargraph.logLevel": "debug",
+  "solargraph.commandPath": "/home/jerry/.rbenv/shims/solargraph",
 }

@@ -11,7 +11,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'leafgarland/typescript-vim'
+Plug 'scrooloose/nerdtree'
 call plug#end()
 
 filetype plugin indent on  " Load plugins according to detected filetype.
@@ -73,7 +73,7 @@ if filereadable(expand("~/.vimrc_background"))
 endif
 
 " Solargraph coc extension
-let g:coc_global_extensions = ['coc-solargraph']
+let g:coc_global_extensions = ['coc-solargraph', 'coc-tsserver']
 
 " Neovim extensions for healthcheck
 let g:python3_host_prog = "/usr/bin/python3"
