@@ -17,6 +17,9 @@ export EMAIL=wohlgejm@gmail.com
 export TOKEN=githubtoken
 sudo apt install git
 sudo apt install curl
+sudo apt install software-properties-common
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
 
 ssh-keygen -t rsa -b 4096 -C "$EMAIL" -N '' -f ~/.ssh/id_rsa
 
