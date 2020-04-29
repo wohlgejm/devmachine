@@ -21,3 +21,8 @@
 
 # all node modules
 node_modules
+
+examples.desktop
+
+# all env files
+.env
