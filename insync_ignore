@@ -3,6 +3,7 @@
 
 # not git directories
 !**/.git
+!**/.git/*
 
 # ignore snaps
 **snap
@@ -26,3 +27,10 @@ examples.desktop
 
 # all env files
 .env
+
+# keep everything in dotfiles
+!devmachine/dotfiles/*
+
+# keep all circle ciconfig
+!**/.circleci
+!**/.circleci/*

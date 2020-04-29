@@ -106,12 +106,6 @@
   - name: coc install
     command: vim +CocInstall +qall
 
-  - name: vim backup dir
-    command: mkdir ~/.vim/files/backup
-    args:
-      creates: ~/.vim/files/backup
-    tags: vim
-
   - name: clone rbenv
     git: >
       repo=git://github.com/sstephenson/rbenv.git
