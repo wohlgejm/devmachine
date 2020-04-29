@@ -1,0 +1,23 @@
+# all .dotfile directories
+**/.*
+
+# not git directories
+!**/.git
+
+# ignore snaps
+**snap
+
+# ignore node version manager
+**n
+
+# go installation
+**go
+
+# all tmp directories
+**/tmp
+
+# all log files
+*.log
+
+# all node modules
+node_modules
