@@ -1,4 +1,4 @@
-# all .dotfile directories
+# all .dotfile directories in the home directory
 /.*
 
 # snaps
@@ -9,6 +9,9 @@
 
 # go installation
 **go
+
+# g go version manager
+**g
 
 # all tmp directories
 **/tmp
@@ -29,3 +32,10 @@ examples.desktop
 [._]*.sw[a-p]
 [._]s[a-v][a-z]
 [._]sw[a-p]
+
+connect
+connect-stack
+survey
+feedback
+stellaconnect-api
+wiki

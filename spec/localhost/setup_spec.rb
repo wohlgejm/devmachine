@@ -33,7 +33,6 @@ PACKAGES = %w[
   libgdbm-dev
   libssl1.0-dev
   redis-server
-
   neovim
 ].freeze
 
@@ -52,6 +51,14 @@ describe command('ruby -v') do
 end
 
 describe file('/home/jerry/.byobu/.tmux.conf') do
+  it { should be_symlink }
+end
+
+describe file('/home/jerry/.vimrc') do
+  it { should be_symlink }
+end
+
+describe file('/usr/bin/local/n') do
   it { should be_symlink }
 end
 
