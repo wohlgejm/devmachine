@@ -228,6 +228,19 @@
       creates: /usr/local/bin/n
     tags: n
 
+  - name: g go version mananger
+    shell: curl -sSL https://git.io/g-install | bash -s -- -y
+    args:
+      creates: ~/go
+    tags: go
+
+  - name: symlink g
+    become: true
+    command: ln -s ~/go/bin/g /usr/local/bin/g
+    args:
+      creates: /usr/local/bin/g
+    tags: go
+
   - name: download rust installer
     get_url:
       url: https://sh.rustup.rs
@@ -253,3 +266,23 @@
     command: snap install --classic heroku
     become: true
     tags: heroku
+
+  - name: slack
+    become: true
+    snap:
+      name: slack
+      classic: yes
+
+  - name: kubectl
+    become: true
+    snap:
+      name: kubectl
+      classic: yes
+    tags: k8s
+
+  - name: helm
+    become: true
+    snap:
+      name: helm
+      classic: yes
+    tags: k8s
