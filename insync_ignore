@@ -1,11 +1,7 @@
 # all .dotfile directories
-**/.*
+/.*
 
-# not git directories
-!**/.git
-!**/.git/*
-
-# ignore snaps
+# snaps
 **snap
 
 # ignore node version manager
@@ -28,9 +24,8 @@ examples.desktop
 # all env files
 .env
 
-# keep everything in dotfiles
-!devmachine/dotfiles/*
-
-# keep all circle ciconfig
-!**/.circleci
-!**/.circleci/*
+# swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
