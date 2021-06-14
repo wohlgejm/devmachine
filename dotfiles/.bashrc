@@ -32,3 +32,12 @@ source /usr/share/bash-completion/bash_completion
 
 # Git activity
 alias git-actity="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+
+# Snap path
+export PATH=$PATH:/snap/bin
+
+# Kubernetes Krew
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# Rush path
+export PATH=”$HOME/.cargo/bin:$PATH”
