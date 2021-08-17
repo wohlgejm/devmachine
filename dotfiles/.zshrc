@@ -8,8 +8,10 @@ precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '[%b]'
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
-PROMPT='%n ${vcs_info_msg_0_}> '
+PROMPT='%n (${PWD/#$HOME/~}) ${vcs_info_msg_0_}> '
 
 alias git-activity="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
 
 export N_PREFIX=/Users/jerry
+export PATH=$N_PREFIX/bin:$PATH
+autoload -Uz compinit && compinit
