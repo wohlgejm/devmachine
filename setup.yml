@@ -21,7 +21,6 @@
         - libindicator7
         - git-core
         - curl
-        - byobu
         - dconf-cli
         - xclip
         - libreadline-dev
@@ -45,6 +44,8 @@
         - mmv
         - rename
         - calibre
+        - alacritty
+        - tmux
 
   # libssl 1.0 is needed for ruby 2.3 and older
   - name: libssl1.0 repo
@@ -60,6 +61,12 @@
       name: libssl1.0-dev
       update_cache: yes
     tags: libssl1.0
+
+  - name: symlink .tmux.conf
+    command: ln -s ~/devmachine/dotfiles/.tmux.conf ~/.tmux.conf
+    args:
+      creates: ~/.tmux.conf
+    tags: tmux
 
   - name: neovim install
     become: true

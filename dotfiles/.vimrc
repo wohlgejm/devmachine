@@ -12,6 +12,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 filetype plugin indent on  " Load plugins according to detected filetype.
