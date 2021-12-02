@@ -13,6 +13,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'github/copilot.vim'
+
+" PlantUML Dependencies
+Plug 'aklt/plantuml-syntax'
+Plug 'tyru/open-browser.vim'
+Plug 'weirongxu/plantuml-previewer.vim'
+
 call plug#end()
 
 filetype plugin indent on  " Load plugins according to detected filetype.

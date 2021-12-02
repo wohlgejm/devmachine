@@ -20,3 +20,6 @@ scrolling:
   # Automatically scroll to the bottom when new text is written
   # to the terminal.
   auto_scroll: false
+
+font:
+  size: 14

@@ -68,6 +68,12 @@
       creates: ~/.tmux.conf
     tags: tmux
 
+  - name: symlink alarcitty conf
+    command: ln -s ~/devmachine/dotfiles/.alacritty.yml ~/.alacritty.yml
+    args:
+      creates: ~/.alacritty.yml
+    tags: alacritty
+
   - name: neovim install
     become: true
     apt:
