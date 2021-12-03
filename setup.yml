@@ -152,7 +152,7 @@
   - name: install ruby 2.3.1
     shell: ~/.rbenv/bin/rbenv install -v 2.3.1
     args:
-      creates: ~/.rbenv/versions/2.3.1
+      creates: ~/.rbenv/versions/2.3.1/bin/ruby
     tags: rbenv
 
   - name: set global version of ruby to 2.3.1
@@ -308,15 +308,15 @@
 
   - name: krew
     shell: |
-        (
+      (
         set -x; cd "$(mktemp -d)" &&
         OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
         ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-        curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz" &&
-        tar zxvf krew.tar.gz &&
-        KREW=./krew-"${OS}_${ARCH}" &&
-        "$KREW" install krew
-        )
+        KREW="krew-${OS}_${ARCH}" &&
+        curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+        tar zxvf "${KREW}.tar.gz" &&
+          ./"${KREW}" install krew
+      )
     tags: k8s
     args:
       creates: ~/.krew/bin/kubectl-krew
