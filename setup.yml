@@ -286,17 +286,6 @@
     args:
       creates: ~/.cargo/bin/rg
 
-  - name: heroku install
-    command: snap install --classic heroku
-    become: true
-    tags: heroku
-
-  - name: slack
-    become: true
-    snap:
-      name: slack
-      classic: yes
-
   - name: kubectl
     become: true
     snap:
