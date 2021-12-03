@@ -22,6 +22,24 @@ Plug 'weirongxu/plantuml-previewer.vim'
 
 call plug#end()
 
+set clipboard=unnamedplus  " Share global copy and paste
+" WSL copy and paste
+let g:clipboard = {
+      \   'name': 'win32yank-wsl',
+      \   'copy': {
+      \      '+': '/path-file/win32yank.exe -i --crlf',
+      \      '*': '/path-file/win32yank.exe -i --crlf',
+      \    },
+      \   'paste': {
+      \      '+': '/path-file/win32yank.exe -o --lf',
+      \      '*': '/path-file/win32yank.exe -o --lf',
+      \   },
+      \   'cache_enabled': 0,
+      \ }
+
+" Disble bell sounds
+set visualbell
+
 filetype plugin indent on  " Load plugins according to detected filetype.
 syntax on                  " Enable syntax highlighting.
 
@@ -54,7 +72,6 @@ set report      =0         " Always report changed lines.
 set synmaxcol   =200       " Only highlight the first 200 columns.
 autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
 set number                 " Set line numbers
-set clipboard=unnamedplus  " Share global copy and paste
 
 set list                   " Show non-printable characters.
 if has('multi_byte') && &encoding ==# 'utf-8'
