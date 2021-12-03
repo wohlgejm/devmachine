@@ -18,6 +18,12 @@ alias gerconsole="kex -n stella-connect-1 -ti jerry-standalone-pod -c stella-con
 alias prodpod="kubectl k2 sp -a stella-connect-web --run-as-root"
 alias prodconsole="kex -n production -ti jerry-standalone-pod -c stella-connect-web rails c"
 
+
+export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"
+export PATH="$GOPATH/bin:$PATH"
+
+export PATH="$HOME/.cargo/bin:$PATH"
+
 alias git-activity="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
 
 export N_PREFIX=$HOME
