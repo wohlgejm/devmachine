@@ -43,9 +43,9 @@
         - redis-server
         - mmv
         - rename
-        - calibre
         - alacritty
         - tmux
+        - zsh
 
   # libssl 1.0 is needed for ruby 2.3 and older
   - name: libssl1.0 repo
