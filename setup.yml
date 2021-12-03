@@ -43,9 +43,19 @@
         - redis-server
         - mmv
         - rename
-        - alacritty
         - tmux
         - zsh
+
+  - name: zsh config
+    command: ln -s ~/devmachine/dotfiles/.zshrc ~/.zshrc
+    args:
+      creates: ~/.zshrc
+    tags: zsh
+
+  - name: zsh default
+    become: true
+    command: chsh -s /usr/bin/zsh jerry
+    tags: zsh
 
   # libssl 1.0 is needed for ruby 2.3 and older
   - name: libssl1.0 repo
