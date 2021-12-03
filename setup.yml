@@ -57,6 +57,10 @@
     command: chsh -s /usr/bin/zsh jerry
     tags: zsh
 
+  - name: zsh omz
+    become: true
+    shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
   # libssl 1.0 is needed for ruby 2.3 and older
   - name: libssl1.0 repo
     become: true
