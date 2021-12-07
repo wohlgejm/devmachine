@@ -1,10 +1,10 @@
+export PATH="/usr/local/bin:$PATH"
 unsetopt beep
 
 # oh-my-zsh
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 plugins=(git rbenv)
-source $ZSH/oh-my-zsh.sh
 
 alias vi="nvim"
 alias vim="nvim"
@@ -35,6 +35,6 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # Speed up git plugin by not checking status on every command
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
 export PATH=$PATH:/Users/jerry/oa-suite/scripts/bin
+
+source $ZSH/oh-my-zsh.sh

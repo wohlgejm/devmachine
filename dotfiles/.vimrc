@@ -23,19 +23,6 @@ Plug 'weirongxu/plantuml-previewer.vim'
 call plug#end()
 
 set clipboard=unnamedplus  " Share global copy and paste
-" WSL copy and paste
-let g:clipboard = {
-      \   'name': 'win32yank-wsl',
-      \   'copy': {
-      \      '+': '/path-file/win32yank.exe -i --crlf',
-      \      '*': '/path-file/win32yank.exe -i --crlf',
-      \    },
-      \   'paste': {
-      \      '+': '/path-file/win32yank.exe -o --lf',
-      \      '*': '/path-file/win32yank.exe -o --lf',
-      \   },
-      \   'cache_enabled': 0,
-      \ }
 
 " Disble bell sounds
 set visualbell
