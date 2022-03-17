@@ -14,6 +14,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'github/copilot.vim'
+Plug 'phaazon/hop.nvim'
 
 " PlantUML Dependencies
 Plug 'aklt/plantuml-syntax'

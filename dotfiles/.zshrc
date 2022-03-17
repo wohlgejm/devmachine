@@ -13,10 +13,12 @@ alias vim="nvim"
 export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/medallia-kubeconfig
 
 alias kex="kubectl exec"
-alias gerpod="kubectl k2 sp -a stella-connect-web -r statefulset -n stella-connect-1"
+alias gerpod="kubectl k2 sp -a stella-connect-web -r statefulset -n stella-connect-1 --resource-mem 4Gi"
 alias gerconsole="kex -n stella-connect-1 -ti jerry-standalone-pod -c stella-connect-web rails c"
 alias prodpod="kubectl k2 sp -a stella-connect-web --run-as-root"
 alias prodconsole="kex -n production -ti jerry-standalone-pod -c stella-connect-web rails c"
+alias stagingpod="kubectl k2 sp -a stella-connect-web --run-as-root"
+alias stagingconsole="kex -n staging -ti jerry-standalone-pod -c stella-connect-web rails c"
 
 
 export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"
@@ -31,6 +33,9 @@ export PATH=$N_PREFIX/bin:$PATH
 autoload -Uz compinit && compinit
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+eval "$(rbenv init - --no-rehash)"
+eval "$(pyenv init -)"
 
 # Speed up git plugin by not checking status on every command
 DISABLE_UNTRACKED_FILES_DIRTY="true"
